@@ -3,7 +3,7 @@ var gulp = require('gulp');                           // Gulp package to tie eve
 var concat = require('gulp-concat');                  // Concats files
 var uglify = require('gulp-uglify');                  // Minifies JavaScript
 var cleancss = require('gulp-clean-css');             // Minifies CSS
-var browserSync = require('browser-sync').create();   // Handles livereload, .create() creates a browsersync instance
+var watch = require('gulp-watch');                   // File watcher
 
 /* Task to concat (put together) and minify JavaScript */
 gulp.task('concat-js', function(){
@@ -34,27 +34,25 @@ gulp.task('copy-img', function(){
           .pipe(gulp.dest('dist/img/')); // destination for the new image files
 });
 
-/* Task to do update the browser when changes are made in development files */
-gulp.task('browser-sync', function() {  
-  browserSync.init({ // Initiating a local server
-      server: {
-          baseDir: "dist/"
-      }
+gulp.task('watcher', function(){
+
+  watch('dev/js/*.js', function(){
+    gulp.start('concat-js');
+  });
+  watch('dev/css/*.css', function(){
+    gulp.start('concat-css'); 
+  });
+  watch('dev/img/*.{gif,jpg,png,svg}', function(){
+    gulp.start('copy-img'); 
+  });
+  watch('dev/*.html', function(){
+    gulp.start('copy-html'); 
   });
 });
 
-/* Task to watch after changes in the development files, 
-   when changes occur run specified task and do a browser reload with browsersync */
-gulp.task('watch', ['browser-sync'], function(){
-  gulp.watch('dev/js/*.js', ['concat-js']).on('change', browserSync.reload); // When changes occur on files run task and reload browser
-  gulp.watch('dev/css/*.css', ['concat-css']).on('change', browserSync.reload);
-  gulp.watch('dev/images/*', ['copy-img']);
-  gulp.watch('dev/*.html', ['copy-html']).on('change', browserSync.reload);;
-});
-
 /* Default task to run with the command 'gulp'
-   Will run every task once before starting the watch task and browsersync.
+   Will run every task once before starting the watch task.
 */
-gulp.task('default',['concat-js', 'concat-css', 'copy-img', 'copy-html', 'watch', 'browser-sync'], function() {
+gulp.task('default',['concat-js', 'concat-css', 'copy-img', 'copy-html', 'watcher', 'browser-sync'], function() {
   console.log("Default task is run");
 });
