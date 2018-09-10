@@ -1,9 +1,9 @@
 // Defining variables from gulp packages
-var gulp = require('gulp');                           // Gulp package to tie everything together
-var concat = require('gulp-concat');                  // Concats files
-var uglify = require('gulp-uglify');                  // Minifies JavaScript
-var cleancss = require('gulp-clean-css');             // Minifies CSS
-var watch = require('gulp-watch');                   // File watcher
+var gulp = require('gulp');               // Gulp package to tie everything together
+var concat = require('gulp-concat');      // Concats files
+var uglify = require('gulp-uglify');      // Minifies JavaScript
+var cleancss = require('gulp-clean-css'); // Minifies CSS
+var watch = require('gulp-watch');        // File watcher
 
 /* Task to concat (put together) and minify JavaScript */
 gulp.task('concat-js', function(){
@@ -34,6 +34,7 @@ gulp.task('copy-img', function(){
           .pipe(gulp.dest('dist/img/')); // destination for the new image files
 });
 
+/* Task to watch for file-changes and then run respective procedure  */
 gulp.task('watcher', function(){
 
   watch('dev/js/*.js', function(){
@@ -53,6 +54,6 @@ gulp.task('watcher', function(){
 /* Default task to run with the command 'gulp'
    Will run every task once before starting the watch task.
 */
-gulp.task('default',['concat-js', 'concat-css', 'copy-img', 'copy-html', 'watcher', 'browser-sync'], function() {
+gulp.task('default',['concat-js', 'concat-css', 'copy-img', 'copy-html', 'watcher'], function() {
   console.log("Default task is run");
 });
