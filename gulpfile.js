@@ -30,7 +30,7 @@ gulp.task('copy-html', function(){
 
 /* Task to copy over image files from the development folder to distribution folder */
 gulp.task('copy-img', function(){
-  return gulp.src('dev/img/*')           // src() source of the html files to use, * indicates any files in the images folder
+  return gulp.src('dev/img/*.{gif,jpg,png,svg}') // src() source of the image files to use, * indicates any files in the images folder
           .pipe(gulp.dest('dist/img/')); // destination for the new image files
 });
 
