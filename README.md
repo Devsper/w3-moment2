@@ -152,4 +152,10 @@ gulp.task('watcher', function(){
 	});
 });
 ```
+#### Default
+Alla uppgifter finns registrerade i en standarduppgift, så när gulp startar så körs alla procedurer en gång och sedan tar gulp-watch över och lyssnar efter ändringar.
 
+### Köra systemet
+1. Klona repot via terminalen med kommandot `git clone https://github.com/Devsper/w3-moment2.git `
+2. Öppna terminalen i projektkatalogen och ladda sedan ner alla paket med kommandot `npm install`
+3. För att starta automatisering så är det bara att köra skriva kommandot `gulp` i terminalen.
